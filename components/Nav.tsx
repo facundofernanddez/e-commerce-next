@@ -1,10 +1,12 @@
 import Link from "next/link";
 
 export const Nav = () => {
+  const inactiveLink = "flex gap-1 p-1";
+  const activeLink = inactiveLink + " bg-white text-blue-950 rounded-l-lg";
   return (
-    <aside className="p-4 text-white">
+    <aside className="p-4 pr-0 text-white">
       <Link
-        className="mb-4 flex gap-1"
+        className="mb-4 mr-4 flex gap-1"
         href={"/"}
       >
         <svg
@@ -26,7 +28,7 @@ export const Nav = () => {
       <nav className="flex flex-col gap-2">
         <Link
           href={"/"}
-          className="flex gap-1"
+          className={activeLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -45,8 +47,8 @@ export const Nav = () => {
           Dashboard
         </Link>
         <Link
-          href={"/"}
-          className="flex gap-1"
+          href={"/orders"}
+          className={inactiveLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +67,8 @@ export const Nav = () => {
           Orders
         </Link>
         <Link
-          href={"/"}
-          className="flex gap-1"
+          href={"/products"}
+          className={inactiveLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -85,8 +87,8 @@ export const Nav = () => {
           Products
         </Link>
         <Link
-          href={"/"}
-          className="flex gap-1"
+          href={"/settings"}
+          className={inactiveLink}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
