@@ -13,13 +13,21 @@ export default function NewProduct() {
         <input
           type="text"
           placeholder="product name"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         <label>Description</label>
-        <textarea placeholder="description" />
+        <textarea
+          placeholder="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <label>Price in USD</label>
         <input
           type="number"
           placeholder="price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
         />
         <button
           type="submit"
