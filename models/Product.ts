@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Document, Schema, model, models } from "mongoose";
 
 const ProductSquema: Schema<IProduct> = new Schema(
   {
@@ -18,4 +18,4 @@ interface IProduct extends Document {
   price: number;
 }
 
-export const Product = model("product", ProductSquema);
+export const Product = models.product || model("product", ProductSquema);
