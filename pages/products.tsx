@@ -1,14 +1,8 @@
 import Layout from "@/components/Layout";
+import { IProducts } from "@/interfaces/IProducts";
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-interface IProducts {
-  _id: string;
-  title: string;
-  description?: string;
-  price: number;
-}
 
 export default function Products() {
   const [products, setProducts] = useState<IProducts[]>([]);
