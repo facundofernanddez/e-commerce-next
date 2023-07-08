@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1 {
-  @apply mb-2 text-xl text-blue-900;
+  @apply mb-2 text-xl text-blue-700;
 }
 input,
 textarea {
@@ -37,5 +37,17 @@ table.basic tr td {
 }
 
 table.basic a {
-  @apply inline-flex gap-1 rounded-md bg-blue-900 p-1 px-2 text-sm text-white;
+  @apply mr-1 inline-flex gap-1 rounded-md bg-blue-900 p-1 px-2 text-sm text-white;
+}
+
+.btn-default,
+.btn-red {
+  @apply rounded-md px-4 py-1;
+}
+.btn-red {
+  @apply bg-red-600 text-white;
+}
+
+.btn-default {
+  @apply bg-gray-500 text-white;
 }
