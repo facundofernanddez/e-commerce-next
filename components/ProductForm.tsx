@@ -21,7 +21,7 @@ export default function ProductForm({
     if (_id) {
       //udpate
 
-      await axios.put("api/products", { ...data, _id });
+      await axios.put("/api/products", { ...data, _id });
     } else {
       //create
 
