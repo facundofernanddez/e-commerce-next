@@ -38,4 +38,12 @@ export default async function handle(
 
     res.json(true);
   }
+
+  if (method === "DELETE") {
+    if (req.query?.id) {
+      await Product.deleteOne({ _id: req.query.id });
+
+      res.json(true);
+    }
+  }
 }

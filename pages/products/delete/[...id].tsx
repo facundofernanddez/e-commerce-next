@@ -23,7 +23,11 @@ export default function DeleteProductPage() {
     router.push("/products");
   };
 
-  const deleteProduct = () => {};
+  const deleteProduct = async () => {
+    await axios.delete("/api/products?id=" + id);
+
+    goBack();
+  };
 
   return (
     <Layout>
