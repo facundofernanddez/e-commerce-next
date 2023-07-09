@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { BaseSyntheticEvent, FormEvent, SyntheticEvent, useState } from "react";
 import Layout from "./Layout";
 import { IProducts } from "@/interfaces/IProducts";
 
@@ -32,7 +32,20 @@ export default function ProductForm({
     router.push("/products");
   };
 
-  const uploadImage = () => {};
+  const uploadImages = async (e: any) => {
+    const files = e.target?.files;
+
+    if (files?.length > 0) {
+      const data = new FormData();
+
+      for (const file of files) {
+        data.append("file", file);
+      }
+
+      const res = await axios.post("/api/upload", data);
+      console.log(res.data);
+    }
+  };
 
   return (
     <form onSubmit={saveProduct}>
@@ -45,7 +58,7 @@ export default function ProductForm({
       />
       <label>Photos</label>
       <div className="mb-2">
-        <label className="flex h-24 w-24 flex-col items-center justify-center gap-1 rounded-lg bg-gray-200 text-sm text-gray-500">
+        <label className="flex h-24 w-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg bg-gray-200 text-sm text-gray-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -63,7 +76,7 @@ export default function ProductForm({
           Upload
           <input
             type="file"
-            onChange={uploadImage}
+            onChange={uploadImages}
             className="hidden"
           />
         </label>
