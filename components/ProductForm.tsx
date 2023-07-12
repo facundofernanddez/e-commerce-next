@@ -20,12 +20,8 @@ export default function ProductForm({
     e.preventDefault();
     const data = { title, description, price };
     if (_id) {
-      //udpate
-
       await axios.put("/api/products", { ...data, _id });
     } else {
-      //create
-
       await axios.post("/api/products", data);
     }
 
