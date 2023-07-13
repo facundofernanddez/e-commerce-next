@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { BaseSyntheticEvent, FormEvent, SyntheticEvent, useState } from "react";
-import Layout from "./Layout";
+import { FormEvent, ReactNode, useState } from "react";
 import { IProducts } from "@/interfaces/IProducts";
 
 export default function ProductForm({
@@ -9,11 +8,14 @@ export default function ProductForm({
   title: existingTitle,
   description: existingDescription,
   price: existingPrice,
-  images,
+  images: existingImages,
 }: IProducts) {
+  // Terminar lo de las imagenes de productos.
+
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
+  // const [images, setImages] = useState<ReactNode>(existingImages || []);
   const router = useRouter();
 
   const saveProduct = async (e: FormEvent<HTMLFormElement>) => {
@@ -53,7 +55,20 @@ export default function ProductForm({
         onChange={(e) => setTitle(e.target.value)}
       />
       <label>Photos</label>
-      <div className="mb-2">
+      <div className="mb-2 flex flex-wrap gap-2">
+        {/* {!!images?.length &&
+          images.map((_image) => {
+            <div
+              key={link}
+              className="inline-block h-24"
+            >
+              <img
+                src={link}
+                alt=""
+                className="rounded-lg "
+              />
+            </div>;
+          })} */}
         <label className="flex h-24 w-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg bg-gray-200 text-sm text-gray-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
