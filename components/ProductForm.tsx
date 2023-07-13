@@ -8,7 +8,7 @@ export default function ProductForm({
   title: existingTitle,
   description: existingDescription,
   price: existingPrice,
-  images: existingImages,
+  images,
 }: IProducts) {
   // Terminar lo de las imagenes de productos.
 
