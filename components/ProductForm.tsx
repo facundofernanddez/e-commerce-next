@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { FormEvent, ReactNode, useState } from "react";
 import { IProducts } from "@/interfaces/IProducts";
+import Spinner from "./Spinner";
 
 export default function ProductForm({
   _id,
@@ -16,11 +17,12 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   // const [images, setImages] = useState<ReactNode>(existingImages || []);
+  const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
 
   const saveProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { title, description, price };
+    const data = { title, description, price, images };
     if (_id) {
       await axios.put("/api/products", { ...data, _id });
     } else {
@@ -34,6 +36,8 @@ export default function ProductForm({
     const files = e.target?.files;
 
     if (files?.length > 0) {
+      setIsUploading(true);
+
       const data = new FormData();
 
       for (const file of files) {
@@ -41,8 +45,8 @@ export default function ProductForm({
       }
 
       const res = await axios.post("/api/upload", data);
-      console.log(res);
     }
+    setIsUploading(false);
   };
 
   return (
@@ -69,6 +73,11 @@ export default function ProductForm({
               />
             </div>;
           })} */}
+        {isUploading && (
+          <div className="flex h-24 items-center">
+            <Spinner />
+          </div>
+        )}
         <label className="flex h-24 w-24 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg bg-gray-200 text-sm text-gray-500">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -91,7 +100,6 @@ export default function ProductForm({
             className="hidden"
           />
         </label>
-        {!images?.length && <div>No photos in this product</div>}
       </div>
       <label>Description</label>
       <textarea
