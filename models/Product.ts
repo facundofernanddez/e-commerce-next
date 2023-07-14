@@ -5,7 +5,7 @@ const ProductSquema: Schema<IProduct> = new Schema(
     title: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     price: { type: Number, required: true, trim: true },
-    images: { type: [String] },
+    images: [{ type: String }],
   },
   {
     versionKey: false,
