@@ -20,4 +20,4 @@ interface IProduct extends Document {
   images?: string[];
 }
 
-export const Product = models.product || model("product", ProductSquema);
+export const Product = models?.product || model("product", ProductSquema);
