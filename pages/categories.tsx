@@ -69,6 +69,7 @@ export default function Categories() {
         <thead>
           <tr>
             <td>Category name</td>
+            <td>Parent Category</td>
           </tr>
         </thead>
         <tbody>
@@ -77,6 +78,7 @@ export default function Categories() {
               return (
                 <tr key={category._id}>
                   <td>{category.name}</td>
+                  <td>{category?.parent?.name}</td>
                 </tr>
               );
             })}
