@@ -14,7 +14,7 @@ const CategorySchema: Schema<ICategory> = new Schema(
 
 interface ICategory extends Document {
   name: string;
-  parent?: object;
+  parent?: ICategory;
 }
 
 export const Category = models?.Category || model("Category", CategorySchema);
