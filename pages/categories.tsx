@@ -2,8 +2,9 @@ import Layout from "@/components/Layout";
 import { ICategories } from "@/interfaces/ICategories";
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
+import { withSwal } from "react-sweetalert2";
 
-export default function Categories() {
+const Categories = ({ swal }) => {
   const [editedCategory, setEditedCategory] = useState<ICategories>();
   const [name, setName] = useState("");
   const [parent, setParent] = useState("");
@@ -43,6 +44,8 @@ export default function Categories() {
     setName(category.name);
     setParent(category.parent?._id || "");
   };
+
+  const deleteCategory = (category: ICategories) => {};
 
   return (
     <Layout>
@@ -111,7 +114,12 @@ export default function Categories() {
                     >
                       Edit
                     </button>
-                    <button className="btn-primary">Delete</button>
+                    <button
+                      onClick={() => deleteCategory(category)}
+                      className="btn-primary"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
@@ -120,4 +128,6 @@ export default function Categories() {
       </table>
     </Layout>
   );
-}
+};
+
+export default withSwal(({ swal }, ref) => <Categories swal={swal} />);
