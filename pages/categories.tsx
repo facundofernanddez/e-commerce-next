@@ -29,6 +29,7 @@ export default function Categories() {
       data._id = editedCategory._id;
 
       await axios.put("/api/categories", data);
+      setEditedCategory(undefined);
     } else {
       await axios.post("/api/categories", data);
     }
@@ -67,7 +68,7 @@ export default function Categories() {
           value={parent}
           onChange={(ev) => setParent(ev.target.value)}
         >
-          <option value="0">No parent category</option>
+          <option value="">No parent category</option>
           {categories.length > 0 &&
             categories.map((category) => {
               return (
