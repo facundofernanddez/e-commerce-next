@@ -24,4 +24,10 @@ export default async function handle(
     const categoryDoc = await Category.updateOne({ _id }, { name, parent });
     res.json(categoryDoc);
   }
+
+  if (method === "DELETE") {
+    const { _id } = req.query;
+    await Category.deleteOne({ _id });
+    res.json("ok");
+  }
 }
