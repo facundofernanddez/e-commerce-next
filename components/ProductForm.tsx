@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useRouter } from "next/router";
-import { FormEvent, ReactNode, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useState } from "react";
 import { IProducts } from "@/interfaces/IProducts";
 import Spinner from "./Spinner";
+import { ICategories } from "@/interfaces/ICategories";
 
 export default function ProductForm({
   _id,
@@ -11,14 +12,22 @@ export default function ProductForm({
   price: existingPrice,
   images,
 }: IProducts) {
-  // Terminar lo de las imagenes de productos.
+  //TODO: Terminar lo de las imagenes de productos.
 
   const [title, setTitle] = useState(existingTitle || "");
+  const [category, setCategory] = useState("");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   // const [images, setImages] = useState<ReactNode>(existingImages || []);
   const [isUploading, setIsUploading] = useState(false);
+  const [categories, setCategories] = useState<ICategories[]>([]);
   const router = useRouter();
+
+  useEffect(() => {
+    axios.get("/api/categories").then((result) => {
+      setCategories(result.data);
+    });
+  }, []);
 
   const saveProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,6 +67,24 @@ export default function ProductForm({
         value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
+      <label>Category</label>
+      <select
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
+        <option value="">Uncategorized</option>
+        {categories.length > 0 &&
+          categories.map((c) => {
+            return (
+              <option
+                key={c._id}
+                value={c._id}
+              >
+                {c.name}
+              </option>
+            );
+          })}
+      </select>
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
         {/* {!!images?.length &&
