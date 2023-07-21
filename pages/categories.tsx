@@ -45,7 +45,25 @@ const Categories = ({ swal }) => {
     setParent(category.parent?._id || "");
   };
 
-  const deleteCategory = (category: ICategories) => {};
+  const deleteCategory = (category: ICategories) => {
+    swal
+      .fire({
+        title: "Are you sure?",
+        text: `Do you want to delete ${category.name}?`,
+        showCancelButton: true,
+        cancelButtonText: "Cancel",
+        confirmButtonText: "Yes, delete!",
+        reverseButtons: true,
+        confirmButtonColor: "#d55",
+      })
+      .then(async (result) => {
+        if (result.isConfirmed) {
+          const { _id } = category;
+          await axios.delete("/api/categories?_id=" + _id);
+          fetchCategories();
+        }
+      });
+  };
 
   return (
     <Layout>
