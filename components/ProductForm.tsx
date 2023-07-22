@@ -11,11 +11,12 @@ export default function ProductForm({
   description: existingDescription,
   price: existingPrice,
   images,
+  category: assignedCategory,
 }: IProducts) {
   //TODO: Terminar lo de las imagenes de productos.
 
   const [title, setTitle] = useState(existingTitle || "");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState(assignedCategory || "");
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   // const [images, setImages] = useState<ReactNode>(existingImages || []);
@@ -31,7 +32,7 @@ export default function ProductForm({
 
   const saveProduct = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { title, description, price, images };
+    const data = { title, description, price, images, category };
     if (_id) {
       await axios.put("/api/products", { ...data, _id });
     } else {
