@@ -73,35 +73,36 @@ const Categories = ({ swal }) => {
           ? `Edit category ${editedCategory.name}`
           : "Create new category"}
       </label>
-      <form
-        onSubmit={saveCategory}
-        className="flex gap-1"
-      >
-        <input
-          className="mb-0"
-          type="text"
-          placeholder="Category name"
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
-        <select
-          className="mb-0"
-          value={parent}
-          onChange={(ev) => setParent(ev.target.value)}
-        >
-          <option value="">No parent category</option>
-          {categories.length > 0 &&
-            categories.map((category) => {
-              return (
-                <option
-                  key={category._id}
-                  value={category._id}
-                >
-                  {category.name}
-                </option>
-              );
-            })}
-        </select>
+      <form onSubmit={saveCategory}>
+        <div className="flex gap-1">
+          <input
+            type="text"
+            placeholder="Category name"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+          <select
+            value={parent}
+            onChange={(ev) => setParent(ev.target.value)}
+          >
+            <option value="">No parent category</option>
+            {categories.length > 0 &&
+              categories.map((category) => {
+                return (
+                  <option
+                    key={category._id}
+                    value={category._id}
+                  >
+                    {category.name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div>
+          <label>Properties</label>
+          <button className="btn-default text-sm">Add new property</button>
+        </div>
         <button
           type="submit"
           className="btn-primary"
