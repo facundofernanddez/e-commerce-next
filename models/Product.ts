@@ -1,4 +1,5 @@
-import { Document, Schema, model, models } from "mongoose";
+import { ICategories } from "@/interfaces/ICategories";
+import mongoose, { Document, Schema, model, models } from "mongoose";
 
 const ProductSquema: Schema<IProduct> = new Schema(
   {
@@ -6,6 +7,7 @@ const ProductSquema: Schema<IProduct> = new Schema(
     description: { type: String, trim: true },
     price: { type: Number, required: true, trim: true },
     images: [{ type: String }],
+    category: { type: mongoose.Types.ObjectId, ref: "Category" },
   },
   {
     versionKey: false,
@@ -18,6 +20,7 @@ interface IProduct extends Document {
   description?: string;
   price: number;
   images?: string[];
+  category?: ICategories;
 }
 
 export const Product = models?.product || model("product", ProductSquema);
