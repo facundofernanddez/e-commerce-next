@@ -73,6 +73,38 @@ const Categories = ({ swal }) => {
     });
   };
 
+  const handlePropertyNameChange = (
+    index: number,
+    property: IProperties,
+    newName: string
+  ) => {
+    setProperties((prev) => {
+      const properties = [...prev];
+      properties[index].name = newName;
+      return properties;
+    });
+  };
+
+  const handlePropertyValuesChange = (
+    index: number,
+    property: IProperties,
+    newValue: string
+  ) => {
+    setProperties((prev) => {
+      const properties = [...prev];
+      properties[index].values = newValue;
+      return properties;
+    });
+  };
+
+  const removeProperty = (indexToRemove: number) => {
+    setProperties((prev) => {
+      return [...prev].filter((p, pIndex) => {
+        return pIndex !== indexToRemove;
+      });
+    });
+  };
+
   return (
     <Layout>
       <h1>Categories</h1>
@@ -111,23 +143,44 @@ const Categories = ({ swal }) => {
           <label className="block">Properties</label>
           <button
             type="button"
-            className="btn-default text-sm"
+            className="btn-default mb-2 text-sm"
             onClick={addProperty}
           >
             Add new property
           </button>
           {properties.length > 0 &&
-            properties.map((prop) => {
-              <div className="flex gap-1">
-                <input
-                  type="text"
-                  placeholder="property name (example: color)"
-                />
-                <input
-                  type="text"
-                  placeholder="property value (example: white)"
-                />
-              </div>;
+            properties.map((prop, index) => {
+              return (
+                <div
+                  key={prop.name}
+                  className="mb-2 flex gap-1"
+                >
+                  <input
+                    className="mb-0"
+                    value={prop.name}
+                    onChange={(ev) =>
+                      handlePropertyNameChange(index, prop, ev.target.value)
+                    }
+                    type="text"
+                    placeholder="property name (example: color)"
+                  />
+                  <input
+                    className="mb-0"
+                    onChange={(ev) => {
+                      handlePropertyValuesChange(index, prop, ev.target.value);
+                    }}
+                    value={prop.values}
+                    type="text"
+                    placeholder="property value (example: white)"
+                  />
+                  <button
+                    onClick={() => removeProperty(index)}
+                    className="btn-default"
+                  >
+                    Remove
+                  </button>
+                </div>
+              );
             })}
         </div>
         <button
