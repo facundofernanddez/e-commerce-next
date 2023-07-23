@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import { ICategories } from "@/interfaces/ICategories";
+import { IProperties } from "@/interfaces/IProperties";
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import { withSwal } from "react-sweetalert2";
@@ -9,6 +10,7 @@ const Categories = ({ swal }) => {
   const [name, setName] = useState("");
   const [parent, setParent] = useState("");
   const [categories, setCategories] = useState<ICategories[]>([]);
+  const [properties, setProperties] = useState<IProperties[]>([]);
 
   useEffect(() => {
     fetchCategories();
@@ -65,6 +67,12 @@ const Categories = ({ swal }) => {
       });
   };
 
+  const addProperty = () => {
+    setProperties((prev) => {
+      return [...prev, { name: "", values: "" }];
+    });
+  };
+
   return (
     <Layout>
       <h1>Categories</h1>
@@ -99,9 +107,28 @@ const Categories = ({ swal }) => {
               })}
           </select>
         </div>
-        <div>
-          <label>Properties</label>
-          <button className="btn-default text-sm">Add new property</button>
+        <div className="mb-2">
+          <label className="block">Properties</label>
+          <button
+            type="button"
+            className="btn-default text-sm"
+            onClick={addProperty}
+          >
+            Add new property
+          </button>
+          {properties.length > 0 &&
+            properties.map((prop) => {
+              <div className="flex gap-1">
+                <input
+                  type="text"
+                  placeholder="property name (example: color)"
+                />
+                <input
+                  type="text"
+                  placeholder="property value (example: white)"
+                />
+              </div>;
+            })}
         </div>
         <button
           type="submit"
