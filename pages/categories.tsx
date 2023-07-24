@@ -26,7 +26,7 @@ const Categories = ({ swal }) => {
 
   const saveCategory = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { name, parent, _id };
+    const data = { name, parent, _id, properties };
 
     if (editedCategory) {
       data._id = editedCategory._id;
@@ -144,7 +144,7 @@ const Categories = ({ swal }) => {
           <button
             type="button"
             className="btn-default mb-2 text-sm"
-            onClick={addProperty}
+            onClick={() => addProperty()}
           >
             Add new property
           </button>
@@ -152,7 +152,7 @@ const Categories = ({ swal }) => {
             properties.map((prop, index) => {
               return (
                 <div
-                  key={prop.name}
+                  key={index}
                   className="mb-2 flex gap-1"
                 >
                   <input
@@ -166,16 +166,17 @@ const Categories = ({ swal }) => {
                   />
                   <input
                     className="mb-0"
+                    value={prop.values}
                     onChange={(ev) => {
                       handlePropertyValuesChange(index, prop, ev.target.value);
                     }}
-                    value={prop.values}
                     type="text"
                     placeholder="property value (example: white)"
                   />
                   <button
                     onClick={() => removeProperty(index)}
                     className="btn-default"
+                    type="button"
                   >
                     Remove
                   </button>
@@ -183,48 +184,65 @@ const Categories = ({ swal }) => {
               );
             })}
         </div>
-        <button
-          type="submit"
-          className="btn-primary"
-        >
-          Save
-        </button>
+        <div className="flex gap-1">
+          {editedCategory && (
+            <button
+              type="button"
+              onClick={() => {
+                setEditedCategory(undefined);
+                setName("");
+                setParent("");
+              }}
+              className="btn-default"
+            >
+              Cancel
+            </button>
+          )}
+          <button
+            type="submit"
+            className="btn-primary"
+          >
+            Save
+          </button>
+        </div>
       </form>
-      <table className="basic mt-4">
-        <thead>
-          <tr>
-            <td>Category name</td>
-            <td>Parent Category</td>
-            <td></td>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.length > 0 &&
-            categories.map((category) => {
-              return (
-                <tr key={category._id}>
-                  <td>{category.name}</td>
-                  <td>{category?.parent?.name}</td>
-                  <td>
-                    <div className="flex"></div>
-                    <button
-                      onClick={() => editCategory(category)}
-                      className="btn-primary mr-1"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => deleteCategory(category)}
-                      className="btn-primary"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      {!editedCategory && (
+        <table className="basic mt-4">
+          <thead>
+            <tr>
+              <td>Category name</td>
+              <td>Parent Category</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {categories.length > 0 &&
+              categories.map((category) => {
+                return (
+                  <tr key={category._id}>
+                    <td>{category.name}</td>
+                    <td>{category?.parent?.name}</td>
+                    <td>
+                      <div className="flex"></div>
+                      <button
+                        onClick={() => editCategory(category)}
+                        className="btn-primary mr-1"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteCategory(category)}
+                        className="btn-primary"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      )}
     </Layout>
   );
 };
