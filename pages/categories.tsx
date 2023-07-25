@@ -26,7 +26,15 @@ const Categories = ({ swal }) => {
 
   const saveCategory = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { name, parent, _id, properties };
+    const data = {
+      name,
+      parent,
+      _id,
+      properties: properties?.map((p) => ({
+        name: p.name,
+        values: p.values.split(",").map((v) => v.trim()),
+      })),
+    };
 
     if (editedCategory) {
       data._id = editedCategory._id;
@@ -38,6 +46,8 @@ const Categories = ({ swal }) => {
     }
 
     setName("");
+    setParent("");
+    setProperties([]);
     fetchCategories();
   };
 
@@ -45,6 +55,8 @@ const Categories = ({ swal }) => {
     setEditedCategory(category);
     setName(category.name);
     setParent(category.parent?._id || "");
+    setProperties(category.properties?.map(
+      ({name, values}) => ({name, values.join(",")}));
   };
 
   const deleteCategory = (category: ICategories) => {
@@ -192,6 +204,7 @@ const Categories = ({ swal }) => {
                 setEditedCategory(undefined);
                 setName("");
                 setParent("");
+                setProperties([]);
               }}
               className="btn-default"
             >
