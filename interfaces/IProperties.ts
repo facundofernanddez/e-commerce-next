@@ -1,4 +1,4 @@
 export interface IProperties {
   name: string;
-  values: string;
+  values: string[] | string;
 }

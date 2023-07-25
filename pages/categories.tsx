@@ -55,8 +55,12 @@ const Categories = ({ swal }) => {
     setEditedCategory(category);
     setName(category.name);
     setParent(category.parent?._id || "");
-    setProperties(category.properties?.map(
-      ({name, values}) => ({name, values.join(",")}));
+    setProperties(
+      category.properties?.map(({ name, values }) => ({
+        name,
+        values: values.join(","),
+      }))
+    );
   };
 
   const deleteCategory = (category: ICategories) => {
