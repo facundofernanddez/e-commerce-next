@@ -1,3 +1,4 @@
+import { IProperties } from "@/interfaces/IProperties";
 import mongoose from "mongoose";
 import { Document, Schema, model, models } from "mongoose";
 
@@ -16,6 +17,7 @@ const CategorySchema: Schema<ICategory> = new Schema(
 interface ICategory extends Document {
   name: string;
   parent?: ICategory;
+  properties?: IProperties[];
 }
 
 export const Category = models?.Category || model("Category", CategorySchema);
