@@ -70,7 +70,7 @@ export default function ProductForm({
       />
       <label>Category</label>
       <select
-        value={category}
+        value={category as string}
         onChange={(e) => setCategory(e.target.value)}
       >
         <option value="">Uncategorized</option>
@@ -86,6 +86,7 @@ export default function ProductForm({
             );
           })}
       </select>
+      {categories.length > 0 && category.properties.length > 0 && <div></div>}
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-2">
         {/* {!!images?.length &&

@@ -10,7 +10,7 @@ const Categories = ({ swal }) => {
   const [name, setName] = useState("");
   const [parent, setParent] = useState("");
   const [categories, setCategories] = useState<ICategories[]>([]);
-  const [properties, setProperties] = useState<IProperties[]>([]);
+  const [properties, setProperties] = useState<IProperties[] | undefined>([]);
 
   useEffect(() => {
     fetchCategories();
@@ -30,10 +30,11 @@ const Categories = ({ swal }) => {
       name,
       parent,
       _id,
-      properties: properties?.map((p) => ({
-        name: p.name,
-        values: p.values.split(",").map((v) => v.trim()),
-      })),
+      properties:
+        properties?.map((p) => ({
+          name: p.name,
+          values: p.values.split(",").map((v) => v.trim()),
+        })) || undefined,
     };
 
     if (editedCategory) {
@@ -59,7 +60,7 @@ const Categories = ({ swal }) => {
       category.properties?.map(({ name, values }) => ({
         name,
         values: values.join(","),
-      }))
+      })) || undefined
     );
   };
 
