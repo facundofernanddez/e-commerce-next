@@ -1,4 +1,5 @@
 import { ICategories } from "./ICategories";
+import { IProperties } from "./IProperties";
 
 export interface IProducts {
   _id: string;
@@ -7,4 +8,5 @@ export interface IProducts {
   price: number;
   images?: any[];
   category?: ICategories;
+  properties?: IProperties;
 }
