@@ -1,9 +1,7 @@
 import { mongooseConnect } from "@/lib/mongooseConnect";
 import { Category } from "@/models/Category";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "./auth/[...nextauth]";
-import { GetSessionParams } from "next-auth/react";
+import { isAdminRequest } from "./auth/[...nextauth]";
 
 export default async function handle(
   req: NextApiRequest,
@@ -11,7 +9,7 @@ export default async function handle(
 ) {
   const { method } = req;
   await mongooseConnect();
-  const session = await getServerSession(req, res, authOptions);
+  await isAdminRequest(req, res);
 
   if (method === "GET") {
     res.json(await Category.find().populate("parent"));
