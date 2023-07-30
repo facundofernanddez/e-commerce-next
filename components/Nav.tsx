@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 export const Nav = () => {
   const inactiveLink = "flex gap-1 p-1";
   const activeLink = inactiveLink + " bg-sky-100 text-black rounded-sm";
+  const inactiveIcon = "w-6 h-6";
+  const activeIcon = inactiveIcon + " text-sky-500";
 
   const router = useRouter();
   const { pathname } = router;
@@ -45,7 +47,7 @@ export const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6"
+            className={pathname === "/" ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -65,7 +67,7 @@ export const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6"
+            className={pathname.includes("orders") ? activeIcon : inactiveIcon}
           >
             <path
               strokeLinecap="round"
@@ -85,7 +87,9 @@ export const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6"
+            className={
+              pathname.includes("products") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
@@ -107,7 +111,9 @@ export const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6"
+            className={
+              pathname.includes("categories") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
@@ -127,7 +133,9 @@ export const Nav = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-6 w-6"
+            className={
+              pathname.includes("settings") ? activeIcon : inactiveIcon
+            }
           >
             <path
               strokeLinecap="round"
