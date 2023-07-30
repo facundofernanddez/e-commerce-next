@@ -9,8 +9,8 @@ export const Nav = () => {
   const router = useRouter();
   const { pathname } = router;
   const logout = async () => {
-    router.push("/");
     await signOut();
+    router.push("/");
   };
   return (
     <aside className="p-4 pr-0 text-white">
