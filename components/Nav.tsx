@@ -2,7 +2,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export const Nav = () => {
+export const Nav = ({ show }) => {
   const inactiveLink = "flex gap-1 p-1";
   const activeLink = inactiveLink + " bg-sky-100 text-black rounded-sm";
   const inactiveIcon = "w-6 h-6";
@@ -15,7 +15,12 @@ export const Nav = () => {
     router.push("/");
   };
   return (
-    <aside className="p-4 text-gray-500">
+    <aside
+      className={
+        (show ? "left-0" : "-left-full") +
+        " fixed top-0 h-full w-full bg-gray-100 p-4 text-gray-500"
+      }
+    >
       <Link
         className="mb-4 mr-4 flex gap-1"
         href={"/"}
