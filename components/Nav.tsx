@@ -22,7 +22,9 @@ export const Nav = ({ show }) => {
         " fixed top-0 h-full w-full bg-gray-100 p-4 text-gray-500 transition-all md:static md:w-auto"
       }
     >
-      <Logo />
+      <div className="mb-4 mr-4">
+        <Logo />
+      </div>
       <nav className="flex flex-col gap-2">
         <Link
           href={"/"}

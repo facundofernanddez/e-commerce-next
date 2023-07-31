@@ -1,6 +1,7 @@
 import { Nav } from "@/components/Nav";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
+import Logo from "./Logo";
 
 export default function Layout({ children }: any) {
   const { data: session } = useSession();
@@ -23,7 +24,7 @@ export default function Layout({ children }: any) {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <div className="block md:hidden">
+      <div className="flex items-center p-4 md:hidden">
         <button onClick={() => setShowNav(true)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -40,6 +41,9 @@ export default function Layout({ children }: any) {
             />
           </svg>
         </button>
+        <div className="mr-6 flex grow justify-center">
+          <Logo />
+        </div>
       </div>
       <div className="flex">
         <Nav show={showNav} />

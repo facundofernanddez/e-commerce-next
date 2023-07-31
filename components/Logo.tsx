@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Logo() {
   return (
     <Link
-      className="mb-4 mr-4 flex gap-1"
+      className="flex gap-1"
       href={"/"}
     >
       <svg
